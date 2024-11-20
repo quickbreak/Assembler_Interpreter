@@ -1,0 +1,40 @@
+Command=6(LOAD_CONSTANT); value=1; res.register=0
+Command=6(LOAD_CONSTANT); value=2; res.register=1
+Command=6(LOAD_CONSTANT); value=600; res.register=2
+Command=6(LOAD_CONSTANT); value=601; res.register=3
+Command=6(LOAD_CONSTANT); value=3; res.register=4
+Command=6(LOAD_CONSTANT); value=602; res.register=5
+Command=6(LOAD_CONSTANT); value=4; res.register=6
+Command=6(LOAD_CONSTANT); value=5; res.register=7
+Command=51(WRITE); register=0; res.memory=0
+Command=51(WRITE); register=1; res.memory=1
+Command=51(WRITE); register=2; res.memory=2
+Command=51(WRITE); register=3; res.memory=3
+Command=51(WRITE); register=4; res.memory=4
+Command=51(WRITE); register=5; res.memory=5
+Command=51(WRITE); register=6; res.memory=6
+Command=51(WRITE); register=7; res.memory=7
+Command=6(LOAD_CONSTANT); value=500; res.register=0
+Command=6(LOAD_CONSTANT); value=501; res.register=1
+Command=6(LOAD_CONSTANT); value=10; res.register=2
+Command=6(LOAD_CONSTANT); value=11; res.register=3
+Command=6(LOAD_CONSTANT); value=502; res.register=4
+Command=6(LOAD_CONSTANT); value=12; res.register=5
+Command=6(LOAD_CONSTANT); value=503; res.register=6
+Command=6(LOAD_CONSTANT); value=504; res.register=7
+Command=17(LESS); memory=0; register=0; res.register=0; 
+Command=17(LESS); memory=1; register=1; res.register=1; 
+Command=17(LESS); memory=2; register=2; res.register=2; 
+Command=17(LESS); memory=3; register=3; res.register=3; 
+Command=17(LESS); memory=4; register=4; res.register=4; 
+Command=17(LESS); memory=5; register=5; res.register=5; 
+Command=17(LESS); memory=6; register=6; res.register=6; 
+Command=17(LESS); memory=7; register=7; res.register=7; 
+Command=51(WRITE); register=0; res.memory=0
+Command=51(WRITE); register=1; res.memory=1
+Command=51(WRITE); register=2; res.memory=2
+Command=51(WRITE); register=3; res.memory=3
+Command=51(WRITE); register=4; res.memory=4
+Command=51(WRITE); register=5; res.memory=5
+Command=51(WRITE); register=6; res.memory=6
+Command=51(WRITE); register=7; res.memory=7

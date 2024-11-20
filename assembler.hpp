@@ -20,6 +20,10 @@ private:
     void WriteToBin();
 
     void ConvertCommand();
+
+    void ClearLog();
+
+    void LogCommand() const;
 public:
     Assembler(std::string txt_file_path, std::string bin_file_path, std::string log_file_path);
     

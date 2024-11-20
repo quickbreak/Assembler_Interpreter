@@ -59,6 +59,39 @@ void Assembler::ConvertCommand() {
     return;
 }
 
+void Assembler::ClearLog() {
+    std::ofstream f(log_file_path_, std::ofstream::out | std::ofstream::trunc);
+    f.close();
+}
+
+void Assembler::LogCommand() const {
+    std::ofstream f(log_file_path_, std::ios::app);
+    if (f.is_open()) {
+        f << "Command=" << A_ << "(" << command_ << "); ";
+        if (command_ == "LOAD_CONSTANT") {
+            f << "value=" << B_ << "; ";
+            f << "res.register=" << C_ << "\n";
+        } else if (command_ == "READ") {
+            f << "memory=" << C_ << "; ";
+            f << "res.register=" << B_ << "\n";
+        } else if (command_ == "WRITE") {
+            f << "register=" << C_ << "; ";
+            f << "res.memory=" << B_ << "\n";
+        } else if (command_ == "LESS") {
+            f << "memory=" << C_ << "; ";
+            f << "register=" << B_ << "; ";
+            f << "res.register=" << B_ << "; \n";
+        } else {
+            std::cerr << "wrong command in logs\n";
+        }
+        return;
+        f.close();
+    } else {
+        std::cerr << "txt file not opened\n";
+    }
+    return;
+}
+
 Assembler::Assembler(std::string txt_file_path, std::string bin_file_path, std::string log_file_path):
     txt_file_path_(txt_file_path),
     bin_file_path_(bin_file_path),
@@ -66,11 +99,13 @@ Assembler::Assembler(std::string txt_file_path, std::string bin_file_path, std::
 {}
 
 void Assembler::Run() {
+    ClearLog();
     std::ifstream f(txt_file_path_);
     if (f.is_open()) {
-        for (auto i = 0; i < 4; ++i) {
-            f >> command_ >> B_ >> C_;
+        while (f >> command_) {
+            f >> B_ >> C_;
             ConvertCommand();
+            LogCommand();
             DecToBytes();
         }
         f.close();

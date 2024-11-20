@@ -35,36 +35,21 @@ void Interpreter::BytesToDec() {
 
     std::string bitstring = bits.to_string();
     A_ = BitstringToDec(bitstring.substr(48-cnt_A_));
-    std::cout << A_ << '\n';
     B_ = BitstringToDec(bitstring.substr(48-cnt_B_-cnt_A_, cnt_B_));
-    std::cout << B_ << '\n';
     C_ = BitstringToDec(bitstring.substr(48-cnt_C_-cnt_B_-cnt_A_, cnt_C_));
-    std::cout << C_ << '\n';
 
     return;
 }
 
-void Interpreter::WriteToYaml(int l, int r) const {
-    std::cout << memory_[5] << '\n';
+void Interpreter::WriteToYaml() const {
     std::ofstream f(result_file_path_);
     if (f.is_open()) {
-        for (int i = l; i <= r; ++i) {
+        for (int i = l_; i < r_; ++i) {
             f << memory_[i] << " ";
         }
         f.close();
     } else {
         std::cerr << "txt file not opened\n";
-    }
-    return;
-}
-
-void Interpreter::ReadFromBin() {
-    std::ifstream f(bin_file_path_, std::ios::binary);
-    if (f.is_open()) {
-        f.read(reinterpret_cast<char*>(bytes_.data()), 6 * 4);
-        f.close();
-    } else {
-        std::cerr << "bin file not opened\n";
     }
     return;
 }
@@ -100,14 +85,22 @@ void Interpreter::ConvertCommand(const std::string& check) {
     return;
 }
 
-Interpreter::Interpreter(std::string bin_file_path, std::string log_file_path, std::string result_file_path):
+void Interpreter::ParseRange(std::string range) {
+    auto pos = range.find('-');
+    l_ = stoi(range.substr(0, pos));
+    r_ = stoi(range.substr(pos + 1));
+    return;
+}
+
+Interpreter::Interpreter(std::string bin_file_path, std::string result_file_path, std::string range):
     bin_file_path_(bin_file_path),
-    log_file_path_(log_file_path),
     result_file_path_(result_file_path),
     bytes_(6),
-    memory_(2048),
+    memory_(2048, -52),
     registers_(2048)
-{}
+{
+    ParseRange(std::move(range));
+}
 
 void Interpreter::ExecuteCommand() {
     if (command_ == "LOAD_CONSTANT") {
@@ -116,7 +109,6 @@ void Interpreter::ExecuteCommand() {
         registers_[B_] = memory_[C_];
     } else if (command_ == "WRITE") {
         memory_[B_] = registers_[C_];
-        // memory_[5] = 52;
     } else if (command_ == "LESS") {
         registers_[B_] = registers_[B_] < memory_[C_];
     } else {
@@ -129,7 +121,7 @@ void Interpreter::Run() {
     std::ifstream f(bin_file_path_, std::ios::binary);
     if (f.is_open()) {
         std::bitset<8> byte;
-        for (auto i = 0; i < 4; ++i) {
+        while(!f.eof()) {
             f.read(reinterpret_cast<char*>(bytes_.data()), bytes_.size());
             byte = bytes_[0];
             ConvertCommand(byte.to_string().substr(5));
@@ -137,7 +129,7 @@ void Interpreter::Run() {
             ExecuteCommand();
         }
         f.close();
-        WriteToYaml(0, 10);
+        WriteToYaml();
     } else {
         std::cerr << "bin file not opened\n";
     }
