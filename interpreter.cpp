@@ -21,7 +21,7 @@ int Interpreter::BitstringToDec(const std::string& bitstring) const {
     return x;
 }
 
-void Interpreter::BytesToDec() {
+void Interpreter::ConvertBin() {
     std::bitset<48>bits;
     unsigned char byte;
     std::bitset<48>bybit;
@@ -41,7 +41,7 @@ void Interpreter::BytesToDec() {
     return;
 }
 
-void Interpreter::WriteToYaml() const {
+void Interpreter::WriteToFile() {
     std::ofstream f(result_file_path_);
     if (f.is_open()) {
         for (int i = l_; i < r_; ++i) {
@@ -54,9 +54,9 @@ void Interpreter::WriteToYaml() const {
     return;
 }
 
-void Interpreter::ConvertCommand(const std::string& check) {
+void Interpreter::ConvertCommand(const std::string check) {
     if (check == "110") {
-        command_ = "LOAD_CONSTANT";
+        this->command_ = "LOAD_CONSTANT";
         A_ = 6;
         cnt_A_ = 6;
         cnt_B_ = 17;
@@ -93,13 +93,13 @@ void Interpreter::ParseRange(std::string range) {
 }
 
 Interpreter::Interpreter(std::string bin_file_path, std::string result_file_path, std::string range):
-    bin_file_path_(bin_file_path),
+    VMProcessor(bin_file_path),
     result_file_path_(result_file_path),
-    bytes_(6),
     memory_(2048, -52),
     registers_(2048)
 {
     ParseRange(std::move(range));
+    this->bytes_ = std::vector<unsigned char>(6);
 }
 
 void Interpreter::ExecuteCommand() {
@@ -125,11 +125,11 @@ void Interpreter::Run() {
             f.read(reinterpret_cast<char*>(bytes_.data()), bytes_.size());
             byte = bytes_[0];
             ConvertCommand(byte.to_string().substr(5));
-            BytesToDec();
+            ConvertBin();
             ExecuteCommand();
         }
         f.close();
-        WriteToYaml();
+        WriteToFile();
     } else {
         std::cerr << "bin file not opened\n";
     }

@@ -5,7 +5,7 @@
 #include <bitset>
 
 
-void Assembler::DecToBytes() {
+void Assembler::ConvertBin() {
     std::bitset<48>bits_A(A_);
     std::bitset<48>bits_B(B_);
     bits_B <<= cnt_A_;
@@ -21,7 +21,7 @@ void Assembler::DecToBytes() {
     return;
 }
 
-void Assembler::WriteToBin() {
+void Assembler::WriteToFile() {
     std::ofstream f(bin_file_path_, std::ios::binary);
     if (f.is_open()) {
         f.write(reinterpret_cast<char*>(bytes_.data()), bytes_.size());
@@ -32,7 +32,7 @@ void Assembler::WriteToBin() {
     return;
 }
 
-void Assembler::ConvertCommand() {
+void Assembler::ConvertCommand(const std::string check) {
     if (command_ == "LOAD_CONSTANT") {
         A_ = 6;
         cnt_A_ = 6;
@@ -93,8 +93,8 @@ void Assembler::LogCommand() const {
 }
 
 Assembler::Assembler(std::string txt_file_path, std::string bin_file_path, std::string log_file_path):
+    VMProcessor(bin_file_path),
     txt_file_path_(txt_file_path),
-    bin_file_path_(bin_file_path),
     log_file_path_(log_file_path)
 {}
 
@@ -106,10 +106,10 @@ void Assembler::Run() {
             f >> B_ >> C_;
             ConvertCommand();
             LogCommand();
-            DecToBytes();
+            ConvertBin();
         }
         f.close();
-        WriteToBin();
+        WriteToFile();
     } else {
         std::cerr << "txt file not opened\n";
     }

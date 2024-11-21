@@ -1,25 +1,18 @@
 #pragma once
 
-
-#include <string>
-#include <vector>
+#include "vmprocessor.hpp"
 
 
-class Assembler {
+class Assembler : VMProcessor {
 private:
     std::string txt_file_path_;
-    std::string bin_file_path_;
     std::string log_file_path_;
-    std::string command_;
-    int A_, B_, C_;
-    int cnt_A_, cnt_B_, cnt_C_;
-    std::vector<unsigned char>bytes_;
 
-    void DecToBytes();
+    void ConvertBin() override;
 
-    void WriteToBin();
+    void WriteToFile() override;
 
-    void ConvertCommand();
+    void ConvertCommand(const std::string check = "") override;
 
     void ClearLog();
 
@@ -27,5 +20,5 @@ private:
 public:
     Assembler(std::string txt_file_path, std::string bin_file_path, std::string log_file_path);
     
-    void Run();
+    void Run() override;
 };
