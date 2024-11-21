@@ -3,8 +3,11 @@
 #include "vmprocessor.hpp"
 
 
-class Assembler : VMProcessor {
-private:
+class AssemblerTest;
+
+class Assembler : public VMProcessor {
+    friend class AssemblerTest;
+protected:
     std::string txt_file_path_;
     std::string log_file_path_;
 

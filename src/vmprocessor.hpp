@@ -2,6 +2,8 @@
 
 #include <string>
 #include <vector>
+
+
 class VMProcessor {
 protected:
     std::string bin_file_path_;
@@ -14,7 +16,7 @@ protected:
     virtual void ConvertCommand(const std::string check) = 0;
     virtual void WriteToFile() = 0;
 
-    
+
     virtual ~VMProcessor() = default;
     VMProcessor(std::string bin_file_path);
 

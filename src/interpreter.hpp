@@ -3,7 +3,10 @@
 #include "vmprocessor.hpp"
 
 
+class InterpreterTest;
+
 class Interpreter : public VMProcessor {
+    friend class InterpreterTest;
 private:
     std::string result_file_path_;
     std::vector<int>memory_, registers_;

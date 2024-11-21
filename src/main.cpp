@@ -10,4 +10,4 @@ int main(int argc, char* argv[]) {
 }
 
 // g++ vmprocessor.cpp assembler.cpp interpreter.cpp main.cpp -o main
-// ./main "./textfile.txt" "./binfile.bin" "./logfile.yaml" "./resultfile.yaml" "0-8"
+// ./main "./textfile.txt" "./binfile.bin" "./logfile.yaml" "./resultfile.yaml" "0-8"               --- придётся подправить
