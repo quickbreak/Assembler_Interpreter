@@ -197,7 +197,7 @@ TEST_F(InterpreterTest, BitStringToDec)
 
 TEST_F(InterpreterTest, ConvertBin)
 {
-    SetBytes({6, 116, 0, 1, 0, 0}); // ?
+    SetBytes({6, 116, 0, 1, 0, 0});
     std::bitset<8> byte = GetBytes()[0];
     ConvertCommand(byte.to_string().substr(5));
     ConvertBin();
@@ -257,8 +257,6 @@ int main(int argc, char** argv)
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
-
-// g++ test.cpp -o test -lgtest -lgmock -pthread
 
 /*
 g++ ../src/vmprocessor.cpp ../src/assembler.cpp ../src/interpreter.cpp -std=c++17 -I../googletest/googletest/include -I../googletest/googletest ./main.cpp -o test ../googletest/build/lib/libgtest.a ../googletest/build/lib/libgtest_main.a -pthread
