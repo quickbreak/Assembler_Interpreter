@@ -1,4 +1,4 @@
-#include "assembler.hpp"
+#include "../include/assembler.hpp"
 
 #include <fstream>
 #include <iostream>

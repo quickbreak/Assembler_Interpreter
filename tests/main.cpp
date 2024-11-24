@@ -1,7 +1,7 @@
-#include "../src/assembler.hpp"
-#include "../src/interpreter.hpp"
+#include "../include/assembler.hpp"
+#include "../include/interpreter.hpp"
 
-#include <../../googletest/googletest/include/gtest/gtest.h>
+#include <gtest/gtest.h>
 #include <memory>
 #include <bitset>
 

@@ -1,5 +1,5 @@
-#include "assembler.hpp"
-#include "interpreter.hpp"
+#include "../include/assembler.hpp"
+#include "../include/interpreter.hpp"
 
 
 int main(int argc, char* argv[]) {
@@ -11,3 +11,4 @@ int main(int argc, char* argv[]) {
 
 // g++ vmprocessor.cpp assembler.cpp interpreter.cpp main.cpp -o main
 // ./main "./textfile.txt" "./binfile.bin" "./logfile.yaml" "./resultfile.yaml" "0-8"
+// ./UVM "../data/inputs/textfile.txt" "../data/tmp/binfile.bin" "../data/logs/logfile.yaml" "../data/outputs/resultfile.yaml" "0-8"
