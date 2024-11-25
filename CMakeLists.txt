@@ -12,7 +12,7 @@ add_executable(UVM
 )
 
 # Создаем кастомную цель для запуска программы с аргументами
-add_custom_target(run
+add_custom_target(run ALL
     COMMAND UVM "../data/inputs/textfile.txt" "../data/tmp/binfile.bin" "../data/logs/logfile.yaml" "../data/outputs/resultfile.yaml" "0-8"
     DEPENDS UVM
     COMMENT "Running MyProject with arguments"
@@ -41,7 +41,7 @@ target_link_libraries(tests gtest gtest_main)
 add_test(NAME MyTests COMMAND tests)
 
 # Создаем кастомную цель для запуска тестов
-add_custom_target(run_tests # ALL
+add_custom_target(run_tests ALL
     COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure
     COMMAND ctest -V
     DEPENDS tests  # Указываем, что тесты должны быть собраны перед их запуском
@@ -52,8 +52,11 @@ add_custom_target(run_tests # ALL
 # cmake ..
 # make
 # ./UVM для запуска программы
-# make run для запуска программы с аргументами
+# make run для запуска программы с аргументами, указанными в add_cutom_target(run ...)
 # make run_tests для запуска тестов
+# 
+# если добавить слово ALL в add_custom_target(run ALL ...), 
+# одной командой make будут собираться проект и запускаться программа с аргументами, указанными в add_cutom_target(run ...)
 # 
 # если добавить слово ALL в add_custom_target(run_tests ALL ...), 
 # одной командой make будут собираться проект и запускаться тесты
